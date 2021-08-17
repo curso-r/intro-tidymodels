@@ -24,7 +24,7 @@ main_repo <- "intro-tidymodels"
 
 - Os **pacotes necessários** no mini curso e o código para instalação são:
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, echo = TRUE}
 pacotes <- c(
   "tidyverse",
   "tidymodels",

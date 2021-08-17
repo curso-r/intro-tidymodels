@@ -12,6 +12,16 @@
 -   Os **pacotes necessários** no mini curso e o código para instalação
     são:
 
+``` r
+pacotes <- c(
+  "tidyverse",
+  "tidymodels",
+  "flexdashboard",
+  "janitor"
+)
+install.packages(pacotes)
+```
+
 ## Dúvidas
 
 -   [Fórum da Comunidade Curso-R](https://discourse.curso-r.com/) para
