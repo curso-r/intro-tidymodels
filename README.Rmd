@@ -26,10 +26,16 @@ main_repo <- "intro-tidymodels"
 
 ```{r, eval = FALSE, echo = TRUE}
 pacotes <- c(
-  "tidyverse",
+  "funModeling",
+  "workflowsets",
   "tidymodels",
-  "flexdashboard",
-  "janitor"
+  "tidyverse",
+  "skimr",
+  "visdat",
+  "GGally",
+  "pROC",
+  "vip",
+  "doFuture"
 )
 install.packages(pacotes)
 ```

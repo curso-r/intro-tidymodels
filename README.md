@@ -14,10 +14,16 @@
 
 ``` r
 pacotes <- c(
-  "tidyverse",
+  "funModeling",
+  "workflowsets",
   "tidymodels",
-  "flexdashboard",
-  "janitor"
+  "tidyverse",
+  "skimr",
+  "visdat",
+  "GGally",
+  "pROC",
+  "vip",
+  "doFuture"
 )
 install.packages(pacotes)
 ```
