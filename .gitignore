@@ -5,3 +5,5 @@
 .DS_Store
 *.zip
 *.db
+*.rds
+*.html
