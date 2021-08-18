@@ -44,18 +44,6 @@ install.packages(pacotes)
 
 -  [Fórum da Comunidade Curso-R](https://discourse.curso-r.com/) para perguntas sobre R, estatística e afins, principalmente as que envolverem código.
 
-## Slides
-
-```{r}
-tibble::tibble(
-  slide = CursoRutils:::list_github_files(main_repo, "slides/", ".html"),
-  link = paste0("https://curso-r.github.io/", main_repo, "/", slide)
-) %>% 
-  dplyr::filter(!stringr::str_detect(slide, "_files/"),
-                stringr::str_ends(slide, ".html")) %>% 
- # dplyr::slice(c(1,2,5,7)) %>% 
-  knitr::kable()
-```
 
 
 ## Referências

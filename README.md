@@ -34,11 +34,6 @@ install.packages(pacotes)
     perguntas sobre R, estatística e afins, principalmente as que
     envolverem código.
 
-## Slides
-
-| slide | link |
-|:------|:-----|
-
 ## Referências
 
 -   [Tidy Modeling With R](https://www.tmwr.org/)
