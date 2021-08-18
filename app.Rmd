@@ -1,0 +1,148 @@
+---
+title: "Calculadora"
+runtime: shiny
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    theme:
+      version: 4
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(shiny)
+library(flexdashboard)
+library(tidymodels)
+theme_set(theme_minimal(12))
+data("credit_data")
+credit_final_lr_model <- readRDS("credit_final_lr_model.rds")
+fit <- extract_fit_parsnip(credit_final_lr_model)
+```
+
+
+
+Column {.sidebar data-width=300}
+-----------------------------------------------------------------------
+
+### Inputs
+
+```{r}
+slider_input <- function(var) {
+  tagList(
+    sliderInput(
+      var, 
+      var, 
+      min = min(credit_data[[var]], na.rm = TRUE), 
+      max = max(credit_data[[var]], na.rm = TRUE), 
+      value = mean(credit_data[[var]], na.rm = TRUE)
+    ),
+    # checkboxInput(paste0(var, "_na"), "NA")
+  )
+}
+
+select_input <- function(var) {
+  tagList(
+    selectizeInput(
+      var, 
+      var, 
+      choices = unique(credit_data[[var]]), 
+      selected = unique(credit_data[[var]])[1]
+    ),
+    # checkboxInput(paste0(var, "_na"), "NA")
+  )
+}
+
+select_input("Home")
+select_input("Marital")
+select_input("Records")
+select_input("Job")
+
+slider_input("Seniority")
+slider_input("Time")     
+slider_input("Age")      
+slider_input("Expenses") 
+slider_input("Income")   
+slider_input("Assets")   
+slider_input("Debt")     
+slider_input("Amount")   
+slider_input("Price") 
+
+
+# predição individual
+uma_obs <- reactive({
+  data.frame(
+    Seniority = input$Seniority,
+    Time = input$Time,
+    Age = input$Age,
+    Expenses = (input$Expenses),
+    Income = (input$Income),
+    Assets = (input$Assets),
+    Debt = (input$Debt),
+    Amount = (input$Amount),
+    Price = (input$Price),
+    Home = (input$Home),
+    Marital = (input$Marital),
+    Records = (input$Records),
+    Job = (input$Job)
+  )
+})
+
+pred <- reactive({
+  
+  uma_obs <- data.frame(
+    Seniority = 17	,
+    Home = "rent", 
+    Time = 60,
+    Age = 58,
+    Marital = "widow",
+    Records = "no",
+    Job = "fixed",
+    Expenses = 48,
+    Income = 131,
+    Assets = 0,
+    Debt = 0,
+    Amount = 1000,
+    Price = 1658
+  )
+  input$Age
+  unlist(predict(credit_final_lr_model, new_data = uma_obs(), type = "prob"))[1]
+})
+    
+
+```
+
+
+caixinhas {data-width=650}
+-----------------------------------------------------------------------
+
+### pred
+
+```{r}
+renderValueBox({
+  valueBox(value = scales::percent((pred())))
+})
+```
+
+### Chart B
+
+```{r}
+valueBox(10, "Precisão")
+```
+
+### Chart C
+
+```{r}
+valueBox(10, "AUROC")
+```
+
+graficos {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+plotly::ggplotly(vip::vip(fit, geom = "point"))
+```
+
+
